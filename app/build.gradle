@@ -1,0 +1,81 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.umut.soysal.personapp"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'com.google.android.material:material:1.4.0'
+
+    //test
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    testImplementation 'androidx.test.ext:junit-ktx:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation "com.google.truth:truth:$truth_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
+    testImplementation "androidx.arch.core:core-testing:$archCoreTest_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlin_coroutines_version"
+
+    //kotlin
+    implementation "androidx.core:core-ktx:$ktx_core_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_ktx_version"
+
+    //viewmodel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$viewModel_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModel_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$viewModel_version"
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:$dagger_hilt_version"
+    kapt("com.google.dagger:hilt-android-compiler:$dagger_hilt_version")
+
+    //navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //3rd
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
+}
