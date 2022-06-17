@@ -77,5 +77,5 @@ dependencies {
 
     //3rd
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_version"
 }

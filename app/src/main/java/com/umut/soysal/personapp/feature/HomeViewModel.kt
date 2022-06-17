@@ -37,4 +37,9 @@ class HomeViewModel @Inject constructor(
             page++
         }
     }
+
+    fun pullRefreshData() {
+        page = 1
+        fetchPersonList()
+    }
 }
