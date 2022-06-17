@@ -20,7 +20,7 @@ class HomeViewModel @Inject constructor(
     private val _personList = MutableStateFlow<List<Person>>(listOf())
     val personList: StateFlow<List<Person>> = _personList.asStateFlow()
 
-    private val page: Int = 1
+    private var page: Int = 1
 
     fun fetchPersonList() {
         viewModelScope.launch {
@@ -34,6 +34,7 @@ class HomeViewModel @Inject constructor(
     private fun handleFetchPersonResponse(response: FetchResponse?) {
         response?.let { result->
             _personList.value += result.people
+            page++
         }
     }
 }

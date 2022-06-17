@@ -1,15 +1,18 @@
 package com.umut.soysal.personapp.core.base
 
 import android.app.Dialog
+import android.app.DialogFragment
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
+import com.umut.soysal.personapp.core.constant.GlobalConstant
+import com.umut.soysal.personapp.uicomponent.LoadingDialog
 
 abstract class ViewModelFragment<T : BaseViewModel> : BaseFragment() {
 
     abstract val viewModel: T
-    private var loadingDialog: Dialog? = null
     private var loadingCount: Int = 0
+    private val loadingFragment by lazy { LoadingDialog() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,14 +36,14 @@ abstract class ViewModelFragment<T : BaseViewModel> : BaseFragment() {
     @Synchronized
     private fun onLoading(show: Boolean) {
         if (show) {
-            if (loadingDialog == null)
-                //loadingDialog = CCSIPopup.showLoadingPopup(context)
+            if (!loadingFragment.isVisible) {
+                loadingFragment.showView(requireActivity().fragmentManager, GlobalConstant.TAG_LOADING)
+            }
             loadingCount++
         } else {
             loadingCount--
             if (loadingCount < 1) {
-                loadingDialog?.dismiss()
-                loadingDialog = null
+                loadingFragment?.dismissAllowingStateLoss()
                 loadingCount = 0
             }
         }
@@ -56,11 +59,11 @@ abstract class ViewModelFragment<T : BaseViewModel> : BaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        loadingDialog?.dismiss()
+        loadingFragment.dismissAllowingStateLoss()
     }
 
     override fun onPause() {
         super.onPause()
-        loadingDialog?.dismiss()
+        loadingFragment.dismissAllowingStateLoss()
     }
 }

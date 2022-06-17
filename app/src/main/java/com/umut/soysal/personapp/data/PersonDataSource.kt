@@ -12,7 +12,9 @@ import javax.inject.Inject
 class PersonDataSource @Inject constructor() {
 
     suspend fun fetchPersonList(page: Int = 0) = flow<NetworkResult<FetchResponse>> {
-        emit(NetworkResult.Loading())
+        if (page <= 1) {
+            emit(NetworkResult.Loading())
+        }
         emit(
             suspendCancellableCoroutine {
                 DataSource().fetch(
